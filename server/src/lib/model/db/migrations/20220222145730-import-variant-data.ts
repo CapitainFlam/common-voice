@@ -112,9 +112,11 @@ export const up = async function (db: any): Promise<any> {
 
   await Promise.all(
     VARIANTS.map(row => {
-      db.runSql(
+      const localeId = mappedLanguages[row['locale_name']];
+      if (!localeId) return;
+      return db.runSql(
         `INSERT IGNORE INTO variants (locale_id, variant_token, variant_name) VALUES ( ${
-          mappedLanguages[row['locale_name']] +
+          localeId +
           ',"' +
           row['variant_token'] +
           '","' +
