@@ -97,6 +97,7 @@ export default class API {
       validate({ body: sendLanguageRequestSchema }),
       this.sendLanguageRequest
     );
+    router.use('/statistics', this.statistics.getRouter());
 
     router.get(
       '/:locale/sentences',
@@ -107,7 +108,6 @@ export default class API {
     router.post('/skipped_clips/:id', this.createSkippedClip);
 
     router.use('/:locale?/clips', this.clip.getRouter());
-    router.use('/statistics', this.statistics.getRouter());
 
     router.get('/contribution_activity', this.getContributionActivity);
     router.get('/:locale/contribution_activity', this.getContributionActivity);
